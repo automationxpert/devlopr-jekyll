@@ -1,9 +1,10 @@
 ### devlopr-jekyll - A Beautiful Jekyll Theme Built for Developers
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-8-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-14-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-[![Gem Version](https://badge.fury.io/rb/devlopr.svg)](https://badge.fury.io/rb/devlopr)![workflow-badge](https://github.com/sujaykundu777/devlopr-jekyll/workflows/deploy/badge.svg)
+[![Gem Version](https://badge.fury.io/rb/devlopr.svg)](https://badge.fury.io/rb/devlopr)
+![workflow-badge](https://github.com/sujaykundu777/devlopr-jekyll/actions/workflows/deploy.yml/badge.svg)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/4232ac2b-63e0-4c78-92e0-e95aad5ab8c3/deploy-status)](https://app.netlify.com/sites/devlopr/deploys)
 ![](https://ruby-gem-downloads-badge.herokuapp.com/devlopr?type=total&color=brightgreen&style=plastic)
 [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
@@ -23,31 +24,182 @@ devlopr uses Markdown Files to generate data like Blog Posts, Gallery, Shop Prod
 
 To get started follow this [Tutorial](https://devlopr.netlify.app/get-started)
 
-```sh
+or if you want to try fast :
+
+### Follow this steps in browser (takes 5-10 mins): 
+1. Fork this Repo with your name as  your_username.github.io
+2. Visit your Fork repo at https://github.com/your_username/your_username.github.io
+3. Press "." in keyboard (this will open up vs-code editor in browser) of the repo.
+4. Customize config.yml file according to your needs (eg. change your Name, Email... etc.)
+5. Commit your changes, and push 
+6. Wait for CI/CD to build your website. Visit Github Actions to see the build process.
+7. Once Ready, Your website will be ready at https://your_username.github.io :sparkles: 
+8. Happy Hacking your new site ! For Local changes you can clone locally.
+
+
+## Local Development Steps :
+
+Step 1: Fork this repo with your github username.
+
+Step 2: Clone Locally
+
+```s
 $ git clone https://github.com/your_github_username/your_github_username.github.io.git
 $ cd your_github_username
-$ ruby -v
+```
+
+Step 3: Now follow the below guides based on your OS.
+
+### For Linux : (Ubuntu 20.04)
+
+To work locally with ubuntu, follow this commands.
+
+Install Ruby :
+```s
+$ sudo apt install ruby-full
+$ ruby --version
+ruby 2.7.0p0 (2019-12-25 revision 647ee6f091) [x86_64-linux-gnu]
+
 $ gem install jekyll bundler
-$ bundler -v
 $ bundle update
+$ bundle install
 $ bundle exec jekyll -v
+jekyll 4.2.2
+
 $ bundle exec jekyll serve --livereload
 ```
 
-If you are using permission issues, running bundler:
+### For Windows :
 
-```sh
+To work locally with windows machine, follow this commands. You might need to download and install [ruby (with devkit)](https://www.ruby-lang.org/en/downloads/) and [git](https://git-scm.com/downloads).
+
+```s
+$ ruby -v 
+(ruby 3.1.2p20 (2022-04-12 revision 4491bb740a) [universal.x86_64-darwin21])
+
+$ gem install jekyll bundler
+
+$ bundler -v
+Bundler version 2.3.23
+
+$ bundle update
+$ bundle install
+$ bundle exec jekyll -v 
+jekyll 4.2.2
+
+$ bundle exec jekyll serve --livereload
+```
+
+If you are running into permission issues running bundler, try the following:
+
+```s
 $ sudo rm -rf _site
 $ bundle update
+$ bundle install
 $ bundle exec jekyll serve
 ```
 Start the server locally at http://127.0.0.1:4000/ or http://localhost:4000/
+
+### For MacOS :
+
+Run the following in your terminal :
+
+#### Option 1. Install ruby using Homebrew
+
+`/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
+
+`brew install ruby`
+
+Add the below in ~/.zshrc file: 
+
+Edit either the  ~/.zshrc and ~/.zprofile files:
+
+`$ open -e ~/.zshrc`
+
+### For Mac M1, M2, M3
+
+```sh
+# override system ruby with homebrew-installed ruby
+if [ -d "/opt/homebrew/opt/ruby/bin" ]; then
+  export PATH=/opt/homebrew/opt/ruby/bin:$PATH
+  export PATH=`gem environment gemdir`/bin:$PATH
+```
+
+### For Mac Intel 
+
+On Mac Intel, add this at the end of your ~/.zshrc or ~/.zprofile file.
+
+```sh
+if [ -d "/usr/local/opt/ruby/bin" ]; then
+  export PATH=/usr/local/opt/ruby/bin:$PATH
+  export PATH=`gem environment gemdir`/bin:$PATH
+fi
+```
+Save the file. This sets the Homebrew-installed Ruby to a higher priority than the system Ruby and adds the directory used for Ruby gems.
+
+### Reset the shell session
+Close and reopen the Terminal window to pick up the changes to the configuration file. Or enter source ~/.zshrc or source ~/.zprofile to reset the shell environment without closing the Terminal window.
+
+```sh
+$ source ~/.zprofile
+$ source ~/.zshrc
+```
+The source command reads and executes a shell script file, resetting the shell environment.
+
+You should be able to see this :
+```sh
+$ ruby -v
+ruby 3.3.4 (2024-07-09 revision be1089c8ec) [arm64-darwin23]
+```
+
+2. Install churby and ruby-install with Homebrew
+
+We will be using [ruby-install](https://github.com/postmodern/ruby-install) to install ruby and [chruby](https://github.com/postmodern/chruby) to change the current ruby version.
+
+`brew install chruby ruby-install`
+ Install latest ruby version 
+
+`ruby-install ruby`
+
+This will take a few minutes, and once it’s done, configure your shell to automatically use chruby:
+
+```sh
+echo "source $(brew --prefix)/opt/chruby/share/chruby/chruby.sh" >> ~/.zshrc
+echo "source $(brew --prefix)/opt/chruby/share/chruby/auto.sh" >> ~/.zshrc
+echo "chruby ruby-3.3.4" >> ~/.zshrc
+```
+If you are facing any problems not getting the version that you just now installed, here is a amazing guide :
+[how to uninstall ruby on mac](https://mac.install.guide/ruby/9)
+
+If you’re using Bash, replace *.zshrc* with *.bash_profile*.
+
+Quit and relaunch Terminal, then check that everything is working:
+
+`$ ruby -v`
+ruby 3.3.4 (2024-07-09 revision be1089c8ec) [arm64-darwin23]
+
+5. Install latest gems
+
+```sh
+$ gem install jekyll bundler
+$ gem update --system 3.5.15
+
+$ bundler -v
+Bundler version 2.5.15
+
+$ bundle update
+
+$ bundle exec jekyll -v 
+jekyll 4.3.3
+
+$ bundle exec jekyll serve --livereload
+```
 
 ### Security 
 
 We use codeQL and dependabot alerts for vulnerabality analysis & fixes.
 
-```sh
+```s
 $ bundle audit
 ```
 
@@ -161,8 +313,9 @@ This project exists thanks to all the people who contribute.
     <td align="center"><a href="http://raghwendra-dey.github.io"><img src="https://avatars.githubusercontent.com/u/45457947?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Raghwendra Dey</b></sub></a><br /><a href="https://github.com/sujaykundu777/devlopr-jekyll/issues?q=author%3ARaghwendra-Dey" title="Bug reports">🐛</a></td>
   </tr>
   <tr>
-    <td align="center"><a href="https://jakebolam.com"><img src="https://avatars.githubusercontent.com/u/3534236?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jake Bolam</b></sub></a><br /><a href="https://github.com/sujaykundu777/devlopr-jekyll/issues?q=author%3Ajakebolam" title="Bug reports">🐛</a></td>
+    <td align="center"><a href="https://automationexpert.us.kg"><img src="https://avatars.githubusercontent.com/u/70540068?v=4?s=100" width="100px;" alt=""/><br /><sub><b>automationxpert</b></sub></a><br /><a href="https://github.com/sujaykundu777/devlopr-jekyll/issues?q=author%3Aautomationxpert" title="Bug reports">🐛</a></td>
   </tr>
+  <tbody>
 </table>
 
 <!-- markdownlint-restore -->
@@ -187,7 +340,7 @@ Contributions are more than just welcome. Fork this repo and create a new branch
 
 ## Support this Project:
 
-Back this project by Donating to our [Open Collective](https://opencollective.com/devlopr-jekyll/donate) or if you like my work[Buymeacoffee](https://buymeacoffee.com/sujaykundu).
+Back this project by Donating to our [Open Collective](https://opencollective.com/devlopr-jekyll/donate) or if you like my work [Buymeacoffee](https://buymeacoffee.com/sujaykundu).
 
 Thanks to all our Backers ! [Become a Backer](https://opencollective.com/devlopr-jekyll/donate)
 
